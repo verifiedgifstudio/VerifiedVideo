@@ -474,6 +474,78 @@
                 padding: 30px 20px;
             }
         }
+        .verified-project {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #b8b8c2;
+    letter-spacing: 0.3px;
+}
+
+.verified-link {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #5865f2, #7289da);
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
+    transition: all 0.25s ease;
+}
+
+.verified-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 22px rgba(88, 101, 242, 0.55);
+    background: linear-gradient(135deg, #7289da, #5865f2);
+}
+        footer{
+
+margin-top:30px;
+
+text-align:center;
+
+color:var(--muted);
+
+font-size:15px;
+
+}
+
+footer a{
+
+position:relative;
+
+text-decoration:none;
+
+color:white;
+
+padding-bottom:3px;
+
+}
+
+footer a::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+bottom:0;
+
+width:0;
+
+height:2px;
+
+background:var(--accent);
+
+transition:.3s;
+
+}
+
+footer a:hover::after{
+
+width:100%;
+
+}
     </style>
 </head>
 <body>
@@ -588,7 +660,30 @@
             <p id="videoInfo"></p>
         </div>
     </div>
+    <p class="verified-project">
+        A <a href="#" class="verified-link">✓ Verified GIF</a> Project.
+    </p>
+    <footer>
 
+    ©
+    
+    <a
+    href="https://rubika.ir/TAXI_lac">
+    
+    TAXI_LAC
+    
+    </a>
+    
+    &
+    
+    <a
+    href="https://rubika.ir/VHOLYHerculeEdit">
+    
+    Hercule
+    
+    </a>
+    
+    </footer>
     <div id="toast" class="show">Verified Video Loaded</div>
 
     <script>
