@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Video</title>
+    <link rel="icon" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Vazirmatn:wght@300;400;500;700;800&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <!-- فونت‌های فارسی اضافی -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/yekan-font@v1.0.0/dist/yekan.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/shabnam.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg1: #090b14;
+            --bg2: #101a2c;
+            --bg3: #182343;
+            --glass: rgba(255, 255, 255, .09);
+            --glass2: rgba(255, 255, 255, .14);
+            --stroke: rgba(255, 255, 255, .18);
+            --text: #ffffff;
+            --muted: rgba(255, 255, 255, .72);
+            --accent: #ffd700;
+            --accent2: #ffbf00;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --radius: 24px;
+            --shadow: 0 25px 60px rgba(0, 0, 0, .45);
+            --shadowSoft: 0 10px 30px rgba(0, 0, 0, .25);
+        }
+
+        :root[data-theme="cool"] {
+            --bg1: #020814;
+            --bg2: #081b33;
+            --bg3: #0f3b66;
+            --glass: rgba(0, 180, 255, .10);
+            --glass2: rgba(0, 200, 255, .16);
+            --stroke: rgba(0, 220, 255, .28);
+            --text: #f4fcff;
+            --muted: rgba(244, 252, 255, .72);
+            --accent: #00d9ff;
+            --accent2: #009dff;
+            --success: #00f5a0;
+            --danger: #ff4f7b;
+            --shadow: 0 25px 60px rgba(0, 120, 255, .35);
+            --shadowSoft: 0 10px 30px rgba(0, 120, 255, .20);
+        }
+
+        :root[data-theme="gold"] {
+            --bg1: #0b0905;
+            --bg2: #1a1307;
+            --bg3: #2c1f09;
+            --glass: rgba(255, 215, 0, .08);
+            --glass2: rgba(255, 215, 0, .15);
+            --stroke: rgba(255, 215, 0, .25);
+            --text: #fffdf7;
+            --muted: rgba(255, 248, 220, .72);
+            --accent: #ffd700;
+            --accent2: #ffb300;
+            --success: #4ade80;
+            --danger: #f87171;
+            --shadow: 0 25px 60px rgba(255, 180, 0, .28);
+            --shadowSoft: 0 10px 30px rgba(255, 180, 0, .18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Ubuntu", "Vazirmatn", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 215, 0, .16), transparent 22%),
+                radial-gradient(circle at 85% 15%, rgba(255, 255, 255, .08), transparent 18%),
+                radial-gradient(circle at 75% 80%, rgba(52, 211, 153, .10), transparent 22%),
+                linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 25px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(120deg, rgba(255, 255, 255, .05), transparent 18%, transparent 82%, rgba(255, 255, 255, .04));
+            opacity: .7;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 950px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 30px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .11), rgba(255, 255, 255, .07));
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
+        }
+
+        .topBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 38px;
+            font-family: "Dancing Script", cursive;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .subtitle {
+            margin-bottom: 25px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .topButtons button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 14px;
+            background: var(--glass2);
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 700;
+            font-family: inherit;
+            border: 1px solid var(--stroke);
+            transition: .25s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .topButtons button:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, .18);
+        }
+
+        .card {
+            margin-top: 20px;
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: var(--shadowSoft);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            font-size: 22px;
+        }
+
+        #dropArea {
+            padding: 45px;
+            text-align: center;
+            border: 2px dashed var(--stroke);
+            border-radius: 18px;
+            transition: .25s;
+            cursor: pointer;
+        }
+
+        #dropArea.drag {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, .05);
+        }
+
+        #browseBtn {
+            margin-top: 18px;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #111;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        #browseBtn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        #previewImage {
+            width: 100%;
+            display: none;
+            border-radius: 18px;
+            border: 1px solid var(--stroke);
+            background: #000;
+            box-shadow: var(--shadowSoft);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 16px;
+            color: var(--text);
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            border-radius: 16px;
+            outline: none;
+            transition: .25s;
+        }
+
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, .12);
+        }
+
+        .counter {
+            margin-top: 10px;
+            text-align: right;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .settingsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid var(--stroke);
+            background: var(--glass);
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+            transition: .25s;
+        }
+
+        select:focus {
+            border-color: var(--accent);
+        }
+
+        #positionGroup {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #positionGroup button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid var(--stroke);
+            background: var(--glass);
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 700;
+            transition: .25s;
+        }
+
+        #positionGroup button:hover {
+            transform: translateY(-2px);
+        }
+
+        #positionGroup button.active {
+            background: rgba(255, 215, 0, .18);
+            border-color: var(--accent);
+        }
+
+        #generateBtn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #111;
+            transition: .25s;
+            box-shadow: 0 12px 30px rgba(255, 215, 0, .25);
+        }
+
+        #generateBtn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        #generateBtn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        #progressSection {
+            display: none;
+            margin-top: 25px;
+        }
+
+        #progressBar {
+            width: 100%;
+            height: 14px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid var(--stroke);
+        }
+
+        #progressFill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transition: width .2s linear;
+        }
+
+        #percent {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        #output {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 20px;
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+        }
+
+        #outputVideo {
+            width: 100%;
+            border-radius: 18px;
+            border: 1px solid var(--stroke);
+            background: #000;
+        }
+
+        #downloadBtn {
+            margin-top: 18px;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        #downloadBtn:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        #downloadBtn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        #videoInfo {
+            margin-top: 15px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            transform: translateX(-50%) translateY(120px);
+            padding: 14px 22px;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, .75);
+            color: white;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            transition: .35s;
+            z-index: 9999;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        img,
+        video {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #111;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, .05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent2);
+        }
+
+        @media(max-width:700px) {
+            body {
+                padding: 14px;
+            }
+            .container {
+                padding: 18px;
+                border-radius: 22px;
+            }
+            .topBar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .logo {
+                font-size: 34px;
+            }
+            #positionGroup {
+                flex-direction: column;
+            }
+            #positionGroup button {
+                width: 100%;
+            }
+            .settingsGrid {
+                grid-template-columns: 1fr;
+            }
+            #browseBtn,
+            #themeBtn,
+            #downloadBtn,
+            #generateBtn {
+                width: 100%;
+            }
+            #dropArea {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="topBar">
+            <h1 class="logo">Verified Video</h1>
+            <div class="topButtons">
+                <button id="langBtn" style="margin-bottom: 5px;">EN</button>
+                <button id="themeBtn">Theme</button>
+            </div>
+        </div>
+        <p class="subtitle">تصویر خودتو به ویدیو تبدیل کن.</p>
+
+        <div class="card">
+            <h2>آپلود تصویر</h2>
+            <div id="dropArea">
+                <p>🖼️ Drag &amp; Drop your image here</p>
+                <p>or</p>
+                <button id="browseBtn">انتخاب تصویر</button>
+                <input type="file" id="imageInput" accept="image/*" hidden>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>پیش نمایش</h2>
+            <img id="previewImage" draggable="false">
+        </div>
+
+        <div class="card">
+            <h2>متن</h2>
+            <textarea id="caption" maxlength="150" placeholder="Type something..."></textarea>
+            <div class="counter">
+                <span id="charCount">0</span> /150
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>فونت متن</h2>
+            <select id="fontSelect">
+                <option value="Vazirmatn">وزیرمتن (Vazirmatn)</option>
+                <option value="Yekan">یکان (Yekan)</option>
+                <option value="Shabnam">شبنم (Shabnam)</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <h2>افکت</h2>
+            <select id="animation">
+                <option value="none">None</option>
+                <option value="zoomIn">Zoom In</option>
+                <option value="zoomOut">Zoom Out</option>
+                <option value="panLeft">Pan Left</option>
+                <option value="panRight">Pan Right</option>
+                <option value="panUp">Pan Up</option>
+                <option value="panDown">Pan Down</option>
+                <option value="pulse">Pulse</option>
+            </select>
+        </div>
+
+        <div class="card settingsGrid">
+            <div>
+                <label>مدت زمان</label>
+                <select id="duration">
+                    <option>3</option>
+                    <option selected>5</option>
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                </select>
+            </div>
+            <div>
+                <label>سرعت فریم</label>
+                <select id="fps">
+                    <option>24</option>
+                    <option selected>30</option>
+                    <option>60</option>
+                </select>
+            </div>
+            <div>
+                <label>نسبت ابعاد</label>
+                <select id="aspect">
+                    <option value="original">اصلی</option>
+                    <option value="16:9">16:9</option>
+                    <option value="1:1">1:1</option>
+                    <option value="9:16">9:16</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>محل متن</h2>
+            <div id="positionGroup">
+                <button data-pos="top" class="active">بالا</button>
+                <button data-pos="center">وسط</button>
+                <button data-pos="bottom">پایین</button>
+            </div>
+        </div>
+
+        <button id="generateBtn" disabled>ساخت ویدیو</button>
+
+        <div id="progressSection">
+            <div id="progressBar">
+                <div id="progressFill"></div>
+            </div>
+            <p id="percent">0%</p>
+        </div>
+
+        <div id="output">
+            <h2>خروجی</h2>
+            <video id="outputVideo" controls playsinline></video>
+            <button id="downloadBtn" disabled>دانلود WebM</button>
+            <p id="videoInfo"></p>
+        </div>
+    </div>
+
+    <div id="toast" class="show">Verified Video Loaded</div>
+
+    <script>
+        "use strict";
+
+        // ========================= DOM ELEMENTS =========================
+        const imageInput = document.getElementById("imageInput");
+        const browseBtn = document.getElementById("browseBtn");
+        const dropArea = document.getElementById("dropArea");
+        const previewImage = document.getElementById("previewImage");
+        const caption = document.getElementById("caption");
+        const charCount = document.getElementById("charCount");
+        const fontSelect = document.getElementById("fontSelect");
+        const animationSelect = document.getElementById("animation");
+        const durationSelect = document.getElementById("duration");
+        const fpsSelect = document.getElementById("fps");
+        const aspectSelect = document.getElementById("aspect");
+        const generateBtn = document.getElementById("generateBtn");
+        const output = document.getElementById("output");
+        const outputVideo = document.getElementById("outputVideo");
+        const downloadBtn = document.getElementById("downloadBtn");
+        const progressSection = document.getElementById("progressSection");
+        const progressFill = document.getElementById("progressFill");
+        const percent = document.getElementById("percent");
+        const videoInfo = document.getElementById("videoInfo");
+        const toast = document.getElementById("toast");
+        const themeBtn = document.getElementById("themeBtn");
+        const langBtn = document.getElementById("langBtn");
+
+        // ========================= GLOBALS =========================
+        let selectedImage = null;
+        let imageBitmap = null;
+        let outputBlob = null;
+        let processing = false;
+        let recorder = null;
+        let stream = null;
+        let canvas = null;
+        let ctx = null;
+        let chunks = [];
+        let currentPosition = "top";
+        let currentTheme = "";
+        let currentLanguage = localStorage.getItem("verifiedVideoLanguage") || "fa";
+
+        // ========================= TOAST =========================
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(showToast.timer);
+            showToast.timer = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
+        }
+
+        // ========================= CHARACTER COUNTER =========================
+        caption.addEventListener("input", () => {
+            charCount.textContent = caption.value.length;
+        });
+
+        // ========================= POSITION BUTTONS =========================
+        document.querySelectorAll("#positionGroup button").forEach(button => {
+            button.onclick = () => {
+                document.querySelectorAll("#positionGroup button").forEach(b => b.classList.remove("active"));
+                button.classList.add("active");
+                currentPosition = button.dataset.pos;
+            };
+        });
+
+        // ========================= IMAGE LOADING =========================
+        browseBtn.onclick = () => {
+            imageInput.click();
+        };
+
+        imageInput.onchange = () => {
+            if (imageInput.files.length) {
+                loadImage(imageInput.files[0]);
+            }
+        };
+
+        async function loadImage(file) {
+            try {
+                selectedImage = file;
+                previewImage.src = URL.createObjectURL(file);
+                previewImage.style.display = "block";
+                imageBitmap = await createImageBitmap(file);
+                generateBtn.disabled = false;
+                output.style.display = "none";
+                showToast("تصویر آپلود شد");
+            } catch (error) {
+                showToast("خطا در آپلود تصویر");
+                console.error(error);
+            }
+        }
+
+        // ========================= DRAG & DROP =========================
+        ["dragenter", "dragover"].forEach(event => {
+            dropArea.addEventListener(event, e => {
+                e.preventDefault();
+                dropArea.classList.add("drag");
+            });
+        });
+
+        ["dragleave", "drop"].forEach(event => {
+            dropArea.addEventListener(event, e => {
+                e.preventDefault();
+                dropArea.classList.remove("drag");
+            });
+        });
+
+        dropArea.addEventListener("drop", e => {
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                loadImage(files[0]);
+            }
+        });
+
+        // ========================= THEME =========================
+        function applyTheme(theme) {
+            currentTheme = theme;
+            if (theme === "") {
+                document.documentElement.removeAttribute("data-theme");
+                themeBtn.textContent = "Theme";
+            } else {
+                document.documentElement.setAttribute("data-theme", theme);
+                themeBtn.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+            }
+            localStorage.setItem("verifiedVideoTheme", theme);
+        }
+
+        themeBtn.onclick = () => {
+            if (currentTheme === "") {
+                applyTheme("cool");
+            } else if (currentTheme === "cool") {
+                applyTheme("gold");
+            } else {
+                applyTheme("");
+            }
+        };
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem("verifiedVideoTheme");
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        }
+
+        // ========================= LANGUAGE =========================
+        const translations = {
+            fa: {
+                subtitle: "تصویر خودتو به ویدیو تبدیل کن.",
+                upload: "آپلود تصویر",
+                browse: "انتخاب تصویر",
+                preview: "پیش نمایش",
+                caption: "متن",
+                font: "فونت متن",
+                animation: "افکت",
+                settings: "تنظیمات",
+                position: "محل متن",
+                generate: "ساخت ویدیو",
+                output: "خروجی",
+                download: "دانلود WebM"
+            },
+            en: {
+                subtitle: "Turn any picture into a beautiful video.",
+                upload: "Upload Image",
+                browse: "Browse Image",
+                preview: "Preview",
+                caption: "Caption",
+                font: "Font",
+                animation: "Animation",
+                settings: "Settings",
+                position: "Text Position",
+                generate: "Generate Video",
+                output: "Output",
+                download: "Download WebM"
+            }
+        };
+
+        function applyLanguage() {
+            const t = translations[currentLanguage];
+            document.documentElement.lang = currentLanguage;
+            document.documentElement.dir = currentLanguage === "fa" ? "rtl" : "ltr";
+            
+            const subtitles = document.querySelectorAll(".subtitle");
+            if (subtitles.length) subtitles[0].textContent = t.subtitle;
+            
+            const h2s = document.querySelectorAll(".card h2");
+            if (h2s.length >= 7) {
+                h2s[0].textContent = t.upload;
+                h2s[1].textContent = t.preview;
+                h2s[2].textContent = t.caption;
+                h2s[3].textContent = t.font;
+                h2s[4].textContent = t.animation;
+                h2s[5].textContent = t.settings;
+                h2s[6].textContent = t.position;
+            }
+            
+            browseBtn.textContent = t.browse;
+            generateBtn.textContent = t.generate;
+            downloadBtn.textContent = t.download;
+            langBtn.textContent = currentLanguage === "fa" ? "EN" : "FA";
+            localStorage.setItem("verifiedVideoLanguage", currentLanguage);
+        }
+
+        langBtn.onclick = () => {
+            currentLanguage = currentLanguage === "fa" ? "en" : "fa";
+            applyLanguage();
+        };
+
+        applyLanguage();
+
+        // ========================= RENDERER =========================
+        function createRenderCanvas() {
+            if (!imageBitmap) {
+                throw new Error("No image loaded");
+            }
+
+            canvas = document.createElement("canvas");
+            ctx = canvas.getContext("2d");
+
+            const w = imageBitmap.width;
+            const h = imageBitmap.height;
+
+            switch (aspectSelect.value) {
+                case "16:9":
+                    canvas.width = 1280;
+                    canvas.height = 720;
+                    break;
+                case "1:1":
+                    canvas.width = 1080;
+                    canvas.height = 1080;
+                    break;
+                case "9:16":
+                    canvas.width = 720;
+                    canvas.height = 1280;
+                    break;
+                default:
+                    canvas.width = w;
+                    canvas.height = h;
+            }
+        }
+
+        function drawFrame(progress) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawAnimatedImage(progress);
+            drawCaption();
+            drawWatermark();
+        }
+
+        function drawAnimatedImage(progress) {
+            const cw = canvas.width;
+            const ch = canvas.height;
+            const iw = imageBitmap.width;
+            const ih = imageBitmap.height;
+
+            let scale = Math.max(cw / iw, ch / ih);
+            let offsetX = 0;
+            let offsetY = 0;
+
+            switch (animationSelect.value) {
+                case "zoomIn":
+                    scale = scale * (1 + progress * 0.20);
+                    break;
+                case "zoomOut":
+                    scale = scale * (1.20 - progress * 0.20);
+                    break;
+                case "panLeft":
+                    offsetX = progress * 120;
+                    break;
+                case "panRight":
+                    offsetX = -progress * 120;
+                    break;
+                case "panUp":
+                    offsetY = progress * 120;
+                    break;
+                case "panDown":
+                    offsetY = -progress * 120;
+                    break;
+                case "pulse":
+                    scale = scale * (1 + Math.sin(progress * Math.PI * 4) * 0.035);
+                    break;
+            }
+
+            const drawWidth = iw * scale;
+            const drawHeight = ih * scale;
+            const x = (cw - drawWidth) / 2 + offsetX;
+            const y = (ch - drawHeight) / 2 + offsetY;
+
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "high";
+            ctx.drawImage(imageBitmap, x, y, drawWidth, drawHeight);
+        }
+
+        function drawCaption() {
+            const text = caption.value.trim();
+            if (!text) return;
+
+            const lines = text.split("\n");
+            
+            let fontFamily = "Vazirmatn";
+            switch(fontSelect.value) {
+                case "Yekan":
+                    fontFamily = "Yekan, Vazirmatn";
+                    break;
+                case "Shabnam":
+                    fontFamily = "Shabnam, Vazirmatn";
+                    break;
+                default:
+                    fontFamily = "Vazirmatn";
+            }
+
+            const fontSize = Math.max(32, Math.floor(canvas.width / 20));
+            const lineHeight = fontSize * 1.4;
+
+            let y;
+            switch (currentPosition) {
+                case "top":
+                    y = canvas.height * 0.12;
+                    break;
+                case "center":
+                    y = canvas.height * 0.50;
+                    break;
+                default:
+                    y = canvas.height * 0.88;
+            }
+
+            ctx.save();
+            ctx.font = `700 ${fontSize}px ${fontFamily}, "Vazirmatn", sans-serif`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowColor = "rgba(0,0,0,0.8)";
+            ctx.shadowBlur = 12;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            const startY = y - ((lines.length - 1) * lineHeight) / 2;
+            lines.forEach((line, index) => {
+                const ly = startY + index * lineHeight;
+                ctx.fillText(line, canvas.width / 2, ly);
+            });
+
+            ctx.restore();
+        }
+
+        // ========================= WATERMARK =========================
+        function drawWatermark() {
+            const cw = canvas.width;
+            const ch = canvas.height;
+
+            ctx.save();
+            
+            ctx.translate(cw * 0.08, ch / 2);
+            ctx.rotate(-Math.PI / 2);
+            
+            const fontSize = Math.max(16, Math.floor(cw / 28));
+            ctx.font = `700 ${fontSize}px "Dancing Script", cursive`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            
+            ctx.shadowColor = "rgba(0,0,0,0.9)";
+            ctx.shadowBlur = 15;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            
+            const gradient = ctx.createLinearGradient(0, -20, 0, 20);
+            gradient.addColorStop(0, "#ffd700");
+            gradient.addColorStop(0.5, "#fff8dc");
+            gradient.addColorStop(1, "#ffd700");
+            ctx.fillStyle = gradient;
+            
+            ctx.fillText("@verified_gif", 0, 0);
+            
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = "rgba(0,0,0,0.5)";
+            ctx.lineWidth = 1.5;
+            ctx.strokeText("@verified_gif", 0, 0);
+            
+            ctx.restore();
+        }
+
+        function waitFrame() {
+            return new Promise(resolve => requestAnimationFrame(resolve));
+        }
+
+        // ========================= GENERATE =========================
+        generateBtn.onclick = async () => {
+            if (processing) return;
+            if (!imageBitmap) {
+                showToast("لطفا یک تصویر انتخاب کنید.");
+                return;
+            }
+
+            processing = true;
+            generateBtn.disabled = true;
+            progressSection.style.display = "block";
+            progressFill.style.width = "0%";
+            percent.textContent = "0%";
+            output.style.display = "none";
+            chunks = [];
+            outputBlob = null;
+
+            try {
+                await renderVideo();
+            } catch (error) {
+                console.error("Render error:", error);
+                showToast("خطا: " + error.message);
+                processing = false;
+                generateBtn.disabled = false;
+                progressSection.style.display = "none";
+            }
+        };
+
+        async function renderVideo() {
+            const fps = parseInt(fpsSelect.value);
+            const duration = parseFloat(durationSelect.value);
+            const totalFrames = Math.floor(fps * duration);
+            const safeTotalFrames = Math.max(totalFrames, 2);
+
+            createRenderCanvas();
+
+            let mimeType = "video/webm;codecs=vp9";
+            if (!MediaRecorder.isTypeSupported(mimeType)) {
+                mimeType = "video/webm;codecs=vp8";
+                if (!MediaRecorder.isTypeSupported(mimeType)) {
+                    mimeType = "video/webm";
+                }
+            }
+
+            try {
+                stream = canvas.captureStream(fps);
+                recorder = new MediaRecorder(stream, {
+                    mimeType: mimeType,
+                    videoBitsPerSecond: 8000000
+                });
+            } catch (error) {
+                throw new Error("Failed to create recorder: " + error.message);
+            }
+
+            recorder.ondataavailable = e => {
+                if (e.data.size) {
+                    chunks.push(e.data);
+                }
+            };
+
+            recorder.onstop = finishVideo;
+            recorder.start();
+
+            for (let frame = 0; frame < safeTotalFrames; frame++) {
+                const progress = safeTotalFrames > 1 ? frame / (safeTotalFrames - 1) : 1;
+                drawFrame(progress);
+
+                const percentVal = Math.min(Math.floor(progress * 100), 100);
+                progressFill.style.width = percentVal + "%";
+                percent.textContent = percentVal + "%";
+
+                await waitFrame();
+            }
+
+            recorder.stop();
+        }
+
+        // ========================= FINISH =========================
+        function finishVideo() {
+            if (!chunks || chunks.length === 0) {
+                showToast("ویدیو ساخته نشد.");
+                processing = false;
+                generateBtn.disabled = false;
+                return;
+            }
+
+            outputBlob = new Blob(chunks, {
+                type: recorder ? recorder.mimeType : "video/webm"
+            });
+
+            if (outputVideo.src) {
+                URL.revokeObjectURL(outputVideo.src);
+            }
+
+            const url = URL.createObjectURL(outputBlob);
+            outputVideo.src = url;
+            output.style.display = "block";
+            downloadBtn.disabled = false;
+
+            const width = canvas ? canvas.width : "N/A";
+            const height = canvas ? canvas.height : "N/A";
+
+            videoInfo.innerHTML =
+                "<b>مدت زمان:</b> " + durationSelect.value + " ثانیه<br>" +
+                "<b>سرعت فریم:</b> " + fpsSelect.value + "<br>" +
+                "<b>رزولوشن:</b> " + width + " × " + height + "<br>" +
+                "<b>حجم:</b> " + (outputBlob.size / 1024 / 1024).toFixed(2) + " مگابایت";
+
+            progressFill.style.width = "100%";
+            percent.textContent = "100%";
+            processing = false;
+            generateBtn.disabled = false;
+            stopRecorder();
+            showToast("ویدیو ساخته شد!");
+        }
+
+        // ========================= DOWNLOAD =========================
+        downloadBtn.onclick = () => {
+            if (!outputBlob) {
+                showToast("چیزی برای دانلود نیست.");
+                return;
+            }
+
+            const a = document.createElement("a");
+            const url = URL.createObjectURL(outputBlob);
+            a.href = url;
+            a.download = "verified-video.webm";
+            document.body.appendChild(a);
+            a.click();
+
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        };
+
+        // ========================= CLEANUP =========================
+        function stopRecorder() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+
+            if (recorder) {
+                try {
+                    if (recorder.state === "recording") {
+                        recorder.stop();
+                    }
+                } catch (e) {}
+                recorder = null;
+            }
+
+            stream = null;
+
+            if (canvas) {
+                canvas.width = 0;
+                canvas.height = 0;
+                canvas = null;
+                ctx = null;
+            }
+        }
+
+        window.addEventListener("beforeunload", () => {
+            stopRecorder();
+            if (previewImage.src && previewImage.src.startsWith("blob:")) {
+                URL.revokeObjectURL(previewImage.src);
+            }
+            if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
+                URL.revokeObjectURL(outputVideo.src);
+            }
+        });
+
+        // ========================= ERROR HANDLER =========================
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("Global error:", message, error);
+            processing = false;
+            generateBtn.disabled = false;
+            progressSection.style.display = "none";
+            showToast("خطا: " + (error ? error.message : message));
+            return true;
+        };
+
+        console.log("%cVerified Video Ready!", "color:#22c55e;font-size:18px;font-weight:bold;");
+        showToast("Verified Video Loaded");
+    </script>
+</body>
+   </html>
