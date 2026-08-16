@@ -1055,39 +1055,42 @@ width:100%;
 
         // ========================= WATERMARK =========================
         function drawWatermark() {
-            const cw = canvas.width;
-            const ch = canvas.height;
+    const cw = canvas.width;
+    const ch = canvas.height;
 
-            ctx.save();
-            
-            ctx.translate(cw * 0.08, ch / 2);
-            ctx.rotate(-Math.PI / 2);
-            
-            const fontSize = Math.max(16, Math.floor(cw / 28));
-            ctx.font = `700 ${fontSize}px "Dancing Script", cursive`;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            
-            ctx.shadowColor = "rgba(0,0,0,0.9)";
-            ctx.shadowBlur = 15;
-            ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 0;
-            
-            const gradient = ctx.createLinearGradient(0, -20, 0, 20);
-            gradient.addColorStop(0, "#ffd700");
-            gradient.addColorStop(0.5, "#fff8dc");
-            gradient.addColorStop(1, "#ffd700");
-            ctx.fillStyle = gradient;
-            
-            ctx.fillText("@verified_gif", 0, 0);
-            
-            ctx.shadowBlur = 0;
-            ctx.strokeStyle = "rgba(0,0,0,0.5)";
-            ctx.lineWidth = 1.5;
-            ctx.strokeText("@verified_gif", 0, 0);
-            
-            ctx.restore();
-        }
+    ctx.save();
+
+    ctx.translate(cw * 0.08, ch / 2);
+    ctx.rotate(-Math.PI / 2);
+
+    const fontSize = Math.max(16, Math.floor(cw / 28));
+
+    // Watermark font
+    ctx.font = `700 ${fontSize}px "Ubuntu", sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    ctx.shadowColor = "rgba(0,0,0,0.9)";
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+
+    const gradient = ctx.createLinearGradient(0, -20, 0, 20);
+    gradient.addColorStop(0, "#ffd700");
+    gradient.addColorStop(0.5, "#fff8dc");
+    gradient.addColorStop(1, "#ffd700");
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillText("@verified_gif", 0, 0);
+
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = "rgba(0,0,0,0.5)";
+    ctx.lineWidth = 1.5;
+    ctx.strokeText("@verified_gif", 0, 0);
+
+    ctx.restore();
+}
 
         function waitFrame() {
             return new Promise(resolve => requestAnimationFrame(resolve));
