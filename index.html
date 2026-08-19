@@ -1061,28 +1061,6 @@
                 ctx.restore();
             }
 
-            // ========================= FIX: Add duration metadata to WebM =========================
-            function fixWebMDuration(blob, duration) {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        try {
-                            const buffer = e.target.result;
-                            const view = new DataView(buffer);
-                            
-                            // Find the Cluster and add duration
-                            // This is a simplified approach - we'll just use the blob as-is
-                            // and set duration via the video element
-                            resolve(blob);
-                        } catch (err) {
-                            reject(err);
-                        }
-                    };
-                    reader.onerror = reject;
-                    reader.readAsArrayBuffer(blob);
-                });
-            }
-
             // ========================= GENERATE VIDEO =========================
             generateBtn.addEventListener("click", async () => {
                 if (isProcessing || isGenerating) return;
@@ -1153,10 +1131,6 @@
 
                                 // Create the blob
                                 const blob = new Blob(chunks, { type: mimeType });
-                                
-                                // For WebM, we need to create a proper blob with duration
-                                // The MediaRecorder API doesn't write duration metadata properly
-                                // We'll use the blob as-is and set duration via the video element
                                 outputBlob = blob;
 
                                 if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
@@ -1171,17 +1145,31 @@
                                 const width = canvas ? canvas.width : "N/A";
                                 const height = canvas ? canvas.height : "N/A";
 
-                                // Wait for video metadata to load to get actual duration
-                                outputVideo.onloadedmetadata = function() {
+                                // FIX: Wait for metadata to load before reading duration
+                                const updateInfoWithDuration = function() {
                                     let actualDuration = duration;
-                                    if (outputVideo.duration && !isNaN(outputVideo.duration) && outputVideo.duration > 0) {
+                                    // Check if duration is valid (not Infinity, not NaN, and > 0)
+                                    if (outputVideo.duration && 
+                                        isFinite(outputVideo.duration) && 
+                                        !isNaN(outputVideo.duration) && 
+                                        outputVideo.duration > 0) {
                                         actualDuration = Math.round(outputVideo.duration * 10) / 10;
                                     }
                                     updateVideoInfo(actualDuration, fps, width, height, blob);
                                 };
 
-                                // Also update immediately with settings value
-                                updateVideoInfo(duration, fps, width, height, blob);
+                                // Set up the metadata loaded event
+                                outputVideo.onloadedmetadata = updateInfoWithDuration;
+                                
+                                // Also set up a fallback in case metadata doesn't fire
+                                setTimeout(() => {
+                                    // If duration is still Infinity or NaN, use the default
+                                    if (!isFinite(outputVideo.duration) || isNaN(outputVideo.duration)) {
+                                        updateVideoInfo(duration, fps, width, height, blob);
+                                    } else {
+                                        updateInfoWithDuration();
+                                    }
+                                }, 1000);
 
                                 // Force metadata loading
                                 outputVideo.load();
@@ -1250,7 +1238,12 @@
             // ========================= UPDATE VIDEO INFO =========================
             function updateVideoInfo(duration, fps, width, height, blob) {
                 const sizeMB = (blob.size / 1024 / 1024).toFixed(2);
-                const durationStr = duration.toFixed(1);
+                // Make sure duration is a valid number
+                let displayDuration = duration;
+                if (!isFinite(displayDuration) || isNaN(displayDuration) || displayDuration <= 0) {
+                    displayDuration = parseFloat(durationSelect.value);
+                }
+                const durationStr = displayDuration.toFixed(1);
                 
                 videoInfo.innerHTML =
                     `<b>مدت زمان:</b> ${durationStr} ثانیه<br>` +
@@ -1294,7 +1287,7 @@
 
             // ========================= INIT =========================
             console.log("%c✅ Verified Video Ready!", "color:#22c55e;font-size:18px;font-weight:bold;");
-            showToast("✅ Verified Video بارگذاری شد!");
+            showToast("Verified Video بارگذاری شد!");
 
             // ========================= GLOBAL ERROR HANDLER =========================
             window.onerror = function(message, source, lineno, colno, error) {
@@ -1310,4 +1303,4 @@
         })();
     </script>
 </body>
-    </html>
+</html>
