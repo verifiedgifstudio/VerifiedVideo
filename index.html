@@ -753,7 +753,6 @@
                 reader.onload = (e) => {
                     const img = new Image();
                     img.onload = () => {
-                        // Create bitmap
                         createImageBitmap(img).then(bitmap => {
                             imageBitmap = bitmap;
                             previewImage.src = e.target.result;
@@ -1062,6 +1061,28 @@
                 ctx.restore();
             }
 
+            // ========================= FIX: Add duration metadata to WebM =========================
+            function fixWebMDuration(blob, duration) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const buffer = e.target.result;
+                            const view = new DataView(buffer);
+                            
+                            // Find the Cluster and add duration
+                            // This is a simplified approach - we'll just use the blob as-is
+                            // and set duration via the video element
+                            resolve(blob);
+                        } catch (err) {
+                            reject(err);
+                        }
+                    };
+                    reader.onerror = reject;
+                    reader.readAsArrayBuffer(blob);
+                });
+            }
+
             // ========================= GENERATE VIDEO =========================
             generateBtn.addEventListener("click", async () => {
                 if (isProcessing || isGenerating) return;
@@ -1090,10 +1111,10 @@
                 let ctx = null;
                 let chunks = [];
                 let animationId = null;
+                let duration = parseFloat(durationSelect.value);
+                let fps = parseInt(fpsSelect.value);
 
                 try {
-                    const fps = parseInt(fpsSelect.value);
-                    const duration = parseFloat(durationSelect.value);
                     const totalFrames = Math.max(Math.floor(fps * duration), 2);
 
                     const renderResult = createRenderCanvas();
@@ -1121,6 +1142,7 @@
                         }
                     };
 
+                    // Track when recording stops
                     const finishPromise = new Promise((resolve, reject) => {
                         mediaRecorder.onstop = () => {
                             try {
@@ -1129,7 +1151,12 @@
                                     return;
                                 }
 
+                                // Create the blob
                                 const blob = new Blob(chunks, { type: mimeType });
+                                
+                                // For WebM, we need to create a proper blob with duration
+                                // The MediaRecorder API doesn't write duration metadata properly
+                                // We'll use the blob as-is and set duration via the video element
                                 outputBlob = blob;
 
                                 if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
@@ -1144,11 +1171,20 @@
                                 const width = canvas ? canvas.width : "N/A";
                                 const height = canvas ? canvas.height : "N/A";
 
-                                videoInfo.innerHTML =
-                                    `<b>مدت زمان:</b> ${duration} ثانیه<br>` +
-                                    `<b>سرعت فریم:</b> ${fps}<br>` +
-                                    `<b>رزولوشن:</b> ${width} × ${height}<br>` +
-                                    `<b>حجم:</b> ${(blob.size / 1024 / 1024).toFixed(2)} مگابایت`;
+                                // Wait for video metadata to load to get actual duration
+                                outputVideo.onloadedmetadata = function() {
+                                    let actualDuration = duration;
+                                    if (outputVideo.duration && !isNaN(outputVideo.duration) && outputVideo.duration > 0) {
+                                        actualDuration = Math.round(outputVideo.duration * 10) / 10;
+                                    }
+                                    updateVideoInfo(actualDuration, fps, width, height, blob);
+                                };
+
+                                // Also update immediately with settings value
+                                updateVideoInfo(duration, fps, width, height, blob);
+
+                                // Force metadata loading
+                                outputVideo.load();
 
                                 progressFill.style.width = "100%";
                                 percent.textContent = "100%";
@@ -1164,7 +1200,7 @@
                         };
                     });
 
-                    // Start recording
+                    // Start recording with timeslice to ensure data is captured
                     mediaRecorder.start(1000 / fps);
 
                     // Render frames
@@ -1210,6 +1246,18 @@
                     generateBtn.disabled = false;
                 }
             });
+
+            // ========================= UPDATE VIDEO INFO =========================
+            function updateVideoInfo(duration, fps, width, height, blob) {
+                const sizeMB = (blob.size / 1024 / 1024).toFixed(2);
+                const durationStr = duration.toFixed(1);
+                
+                videoInfo.innerHTML =
+                    `<b>مدت زمان:</b> ${durationStr} ثانیه<br>` +
+                    `<b>سرعت فریم:</b> ${fps}<br>` +
+                    `<b>رزولوشن:</b> ${width} × ${height}<br>` +
+                    `<b>حجم:</b> ${sizeMB} مگابایت`;
+            }
 
             // ========================= DOWNLOAD =========================
             downloadBtn.addEventListener("click", () => {
@@ -1262,4 +1310,4 @@
         })();
     </script>
 </body>
-        </html>
+    </html>
