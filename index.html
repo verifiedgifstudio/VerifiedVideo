@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Vazirmatn:wght@300;400;500;700;800&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <!-- فونت‌های فارسی اضافی -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/yekan-font@v1.0.0/dist/yekan.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/shabnam.min.css" rel="stylesheet">
     <style>
@@ -474,99 +473,82 @@
                 padding: 30px 20px;
             }
         }
+
         .verified-project {
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: #b8b8c2;
-    letter-spacing: 0.3px;
-    text-align: center;
-}
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #b8b8c2;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
 
-.verified-link {
-    color: #ffffff;
-    font-weight: 700;
-    text-decoration: none;
-    padding: 5px 11px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #5865f2, #7289da);
-    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
-    transition: all 0.25s ease;
-}
+        .verified-link {
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 5px 11px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #5865f2, #7289da);
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
+            transition: all 0.25s ease;
+        }
 
-.verified-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 7px 22px rgba(88, 101, 242, 0.55);
-    background: linear-gradient(135deg, #7289da, #5865f2);
-}
-        footer{
+        .verified-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 22px rgba(88, 101, 242, 0.55);
+            background: linear-gradient(135deg, #7289da, #5865f2);
+        }
 
-margin-top:30px;
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 15px;
+        }
 
-text-align:center;
+        footer a {
+            position: relative;
+            text-decoration: none;
+            color: white;
+            padding-bottom: 3px;
+        }
 
-color:var(--muted);
+        footer a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: .3s;
+        }
 
-font-size:15px;
+        footer a:hover::after {
+            width: 100%;
+        }
 
-}
+        .back-menu {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #5865f2, #7289da);
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
+            transition: all 0.25s ease;
+        }
 
-footer a{
-
-position:relative;
-
-text-decoration:none;
-
-color:white;
-
-padding-bottom:3px;
-
-}
-
-footer a::after{
-
-content:"";
-
-position:absolute;
-
-left:0;
-bottom:0;
-
-width:0;
-
-height:2px;
-
-background:var(--accent);
-
-transition:.3s;
-
-}
-
-footer a:hover::after{
-
-width:100%;
-
-}
-.back-menu {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #5865f2, #7289da);
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    letter-spacing: 0.2px;
-    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
-    transition: all 0.25s ease;
-}
-
-.back-menu:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, #7289da, #5865f2);
-    box-shadow: 0 7px 22px rgba(88, 101, 242, 0.55);
-}
+        .back-menu:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #7289da, #5865f2);
+            box-shadow: 0 7px 22px rgba(88, 101, 242, 0.55);
+        }
     </style>
 </head>
 <body>
@@ -690,595 +672,594 @@ width:100%;
         A <a href="https://VerifiedGIFStudio.github.io" class="verified-link">✓ Verified GIF</a> Project.
     </p>
     <footer>
-
-    ©
-    
-    <a
-    href="https://rubika.ir/TAXI_lac">
-    
-    TAXI_LAC
-    
-    </a>
-    
-    &
-    
-    <a
-    href="https://rubika.ir/VHOLYHerculeEdit">
-    
-    Hercule
-    
-    </a>
-    
+        ©
+        <a href="https://rubika.ir/TAXI_lac">TAXI_LAC</a>
+        &
+        <a href="https://rubika.ir/VHOLYHerculeEdit">Hercule</a>
     </footer>
     <div id="toast" class="show">Verified Video Loaded</div>
 
     <script>
-        "use strict";
+        (function() {
+            "use strict";
 
-        // ========================= DOM ELEMENTS =========================
-        const imageInput = document.getElementById("imageInput");
-        const browseBtn = document.getElementById("browseBtn");
-        const dropArea = document.getElementById("dropArea");
-        const previewImage = document.getElementById("previewImage");
-        const caption = document.getElementById("caption");
-        const charCount = document.getElementById("charCount");
-        const fontSelect = document.getElementById("fontSelect");
-        const animationSelect = document.getElementById("animation");
-        const durationSelect = document.getElementById("duration");
-        const fpsSelect = document.getElementById("fps");
-        const aspectSelect = document.getElementById("aspect");
-        const generateBtn = document.getElementById("generateBtn");
-        const output = document.getElementById("output");
-        const outputVideo = document.getElementById("outputVideo");
-        const downloadBtn = document.getElementById("downloadBtn");
-        const progressSection = document.getElementById("progressSection");
-        const progressFill = document.getElementById("progressFill");
-        const percent = document.getElementById("percent");
-        const videoInfo = document.getElementById("videoInfo");
-        const toast = document.getElementById("toast");
-        const themeBtn = document.getElementById("themeBtn");
-        const langBtn = document.getElementById("langBtn");
+            // ========================= DOM ELEMENTS =========================
+            const imageInput = document.getElementById("imageInput");
+            const browseBtn = document.getElementById("browseBtn");
+            const dropArea = document.getElementById("dropArea");
+            const previewImage = document.getElementById("previewImage");
+            const caption = document.getElementById("caption");
+            const charCount = document.getElementById("charCount");
+            const fontSelect = document.getElementById("fontSelect");
+            const animationSelect = document.getElementById("animation");
+            const durationSelect = document.getElementById("duration");
+            const fpsSelect = document.getElementById("fps");
+            const aspectSelect = document.getElementById("aspect");
+            const generateBtn = document.getElementById("generateBtn");
+            const output = document.getElementById("output");
+            const outputVideo = document.getElementById("outputVideo");
+            const downloadBtn = document.getElementById("downloadBtn");
+            const progressSection = document.getElementById("progressSection");
+            const progressFill = document.getElementById("progressFill");
+            const percent = document.getElementById("percent");
+            const videoInfo = document.getElementById("videoInfo");
+            const toast = document.getElementById("toast");
+            const themeBtn = document.getElementById("themeBtn");
+            const langBtn = document.getElementById("langBtn");
 
-        // ========================= GLOBALS =========================
-        let selectedImage = null;
-        let imageBitmap = null;
-        let outputBlob = null;
-        let processing = false;
-        let recorder = null;
-        let stream = null;
-        let canvas = null;
-        let ctx = null;
-        let chunks = [];
-        let currentPosition = "top";
-        let currentTheme = "";
-        let currentLanguage = localStorage.getItem("verifiedVideoLanguage") || "fa";
+            // ========================= STATE =========================
+            let imageBitmap = null;
+            let outputBlob = null;
+            let isProcessing = false;
+            let isGenerating = false;
+            let currentPosition = "top";
+            let currentTheme = "";
+            let currentLanguage = localStorage.getItem("verifiedVideoLanguage") || "fa";
 
-        // ========================= TOAST =========================
-        function showToast(message) {
-            toast.textContent = message;
-            toast.classList.add("show");
-            clearTimeout(showToast.timer);
-            showToast.timer = setTimeout(() => {
-                toast.classList.remove("show");
-            }, 2500);
-        }
+            // ========================= TOAST =========================
+            let toastTimer = null;
 
-        // ========================= CHARACTER COUNTER =========================
-        caption.addEventListener("input", () => {
-            charCount.textContent = caption.value.length;
-        });
+            function showToast(message) {
+                toast.textContent = message;
+                toast.classList.add("show");
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 3000);
+            }
 
-        // ========================= POSITION BUTTONS =========================
-        document.querySelectorAll("#positionGroup button").forEach(button => {
-            button.onclick = () => {
-                document.querySelectorAll("#positionGroup button").forEach(b => b.classList.remove("active"));
-                button.classList.add("active");
-                currentPosition = button.dataset.pos;
+            // ========================= CHARACTER COUNTER =========================
+            caption.addEventListener("input", () => {
+                charCount.textContent = caption.value.length;
+            });
+
+            // ========================= POSITION BUTTONS =========================
+            document.querySelectorAll("#positionGroup button").forEach(button => {
+                button.addEventListener("click", () => {
+                    document.querySelectorAll("#positionGroup button").forEach(b => b.classList.remove("active"));
+                    button.classList.add("active");
+                    currentPosition = button.dataset.pos;
+                });
+            });
+
+            // ========================= IMAGE LOADING =========================
+            function loadImage(file) {
+                if (!file || !file.type.startsWith("image/")) {
+                    showToast("لطفاً یک تصویر معتبر انتخاب کنید.");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        // Create bitmap
+                        createImageBitmap(img).then(bitmap => {
+                            imageBitmap = bitmap;
+                            previewImage.src = e.target.result;
+                            previewImage.style.display = "block";
+                            generateBtn.disabled = false;
+                            output.style.display = "none";
+                            outputBlob = null;
+                            showToast("✅ تصویر با موفقیت آپلود شد!");
+                        }).catch(err => {
+                            console.error("Bitmap error:", err);
+                            showToast("❌ خطا در پردازش تصویر");
+                        });
+                    };
+                    img.onerror = () => {
+                        showToast("❌ خطا در بارگذاری تصویر");
+                    };
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => {
+                    showToast("❌ خطا در خواندن فایل");
+                };
+                reader.readAsDataURL(file);
+            }
+
+            browseBtn.addEventListener("click", () => imageInput.click());
+
+            imageInput.addEventListener("change", () => {
+                if (imageInput.files.length) {
+                    loadImage(imageInput.files[0]);
+                }
+            });
+
+            // ========================= DRAG & DROP =========================
+            ["dragenter", "dragover"].forEach(event => {
+                dropArea.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    dropArea.classList.add("drag");
+                });
+            });
+
+            ["dragleave", "drop"].forEach(event => {
+                dropArea.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    dropArea.classList.remove("drag");
+                });
+            });
+
+            dropArea.addEventListener("drop", (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length) {
+                    loadImage(files[0]);
+                }
+            });
+
+            // ========================= THEME =========================
+            function applyTheme(theme) {
+                currentTheme = theme;
+                if (theme === "") {
+                    document.documentElement.removeAttribute("data-theme");
+                    themeBtn.textContent = "Theme";
+                } else {
+                    document.documentElement.setAttribute("data-theme", theme);
+                    themeBtn.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+                }
+                localStorage.setItem("verifiedVideoTheme", theme);
+            }
+
+            themeBtn.addEventListener("click", () => {
+                if (currentTheme === "") {
+                    applyTheme("cool");
+                } else if (currentTheme === "cool") {
+                    applyTheme("gold");
+                } else {
+                    applyTheme("");
+                }
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem("verifiedVideoTheme");
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            }
+
+            // ========================= LANGUAGE =========================
+            const translations = {
+                fa: {
+                    subtitle: "تصویر خودتو به ویدیو تبدیل کن.",
+                    upload: "آپلود تصویر",
+                    browse: "انتخاب تصویر",
+                    preview: "پیش نمایش",
+                    caption: "متن",
+                    font: "فونت متن",
+                    animation: "افکت",
+                    settings: "تنظیمات",
+                    position: "محل متن",
+                    generate: "ساخت ویدیو",
+                    output: "خروجی",
+                    download: "دانلود WebM"
+                },
+                en: {
+                    subtitle: "Turn any picture into a beautiful video.",
+                    upload: "Upload Image",
+                    browse: "Browse Image",
+                    preview: "Preview",
+                    caption: "Caption",
+                    font: "Font",
+                    animation: "Animation",
+                    settings: "Settings",
+                    position: "Text Position",
+                    generate: "Generate Video",
+                    output: "Output",
+                    download: "Download WebM"
+                }
             };
-        });
 
-        // ========================= IMAGE LOADING =========================
-        browseBtn.onclick = () => {
-            imageInput.click();
-        };
+            function applyLanguage() {
+                const t = translations[currentLanguage];
+                document.documentElement.lang = currentLanguage;
+                document.documentElement.dir = currentLanguage === "fa" ? "rtl" : "ltr";
 
-        imageInput.onchange = () => {
-            if (imageInput.files.length) {
-                loadImage(imageInput.files[0]);
+                const subtitles = document.querySelectorAll(".subtitle");
+                if (subtitles.length) subtitles[0].textContent = t.subtitle;
+
+                const h2s = document.querySelectorAll(".card h2");
+                if (h2s.length >= 7) {
+                    h2s[0].textContent = t.upload;
+                    h2s[1].textContent = t.preview;
+                    h2s[2].textContent = t.caption;
+                    h2s[3].textContent = t.font;
+                    h2s[4].textContent = t.animation;
+                    h2s[5].textContent = t.settings;
+                    h2s[6].textContent = t.position;
+                }
+
+                browseBtn.textContent = t.browse;
+                generateBtn.textContent = t.generate;
+                downloadBtn.textContent = t.download;
+                langBtn.textContent = currentLanguage === "fa" ? "EN" : "FA";
+                localStorage.setItem("verifiedVideoLanguage", currentLanguage);
             }
-        };
 
-        async function loadImage(file) {
-            try {
-                selectedImage = file;
-                previewImage.src = URL.createObjectURL(file);
-                previewImage.style.display = "block";
-                imageBitmap = await createImageBitmap(file);
-                generateBtn.disabled = false;
-                output.style.display = "none";
-                showToast("تصویر آپلود شد");
-            } catch (error) {
-                showToast("خطا در آپلود تصویر");
-                console.error(error);
-            }
-        }
-
-        // ========================= DRAG & DROP =========================
-        ["dragenter", "dragover"].forEach(event => {
-            dropArea.addEventListener(event, e => {
-                e.preventDefault();
-                dropArea.classList.add("drag");
+            langBtn.addEventListener("click", () => {
+                currentLanguage = currentLanguage === "fa" ? "en" : "fa";
+                applyLanguage();
             });
-        });
 
-        ["dragleave", "drop"].forEach(event => {
-            dropArea.addEventListener(event, e => {
-                e.preventDefault();
-                dropArea.classList.remove("drag");
-            });
-        });
-
-        dropArea.addEventListener("drop", e => {
-            const files = e.dataTransfer.files;
-            if (files.length) {
-                loadImage(files[0]);
-            }
-        });
-
-        // ========================= THEME =========================
-        function applyTheme(theme) {
-            currentTheme = theme;
-            if (theme === "") {
-                document.documentElement.removeAttribute("data-theme");
-                themeBtn.textContent = "Theme";
-            } else {
-                document.documentElement.setAttribute("data-theme", theme);
-                themeBtn.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
-            }
-            localStorage.setItem("verifiedVideoTheme", theme);
-        }
-
-        themeBtn.onclick = () => {
-            if (currentTheme === "") {
-                applyTheme("cool");
-            } else if (currentTheme === "cool") {
-                applyTheme("gold");
-            } else {
-                applyTheme("");
-            }
-        };
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem("verifiedVideoTheme");
-        if (savedTheme) {
-            applyTheme(savedTheme);
-        }
-
-        // ========================= LANGUAGE =========================
-        const translations = {
-            fa: {
-                subtitle: "تصویر خودتو به ویدیو تبدیل کن.",
-                upload: "آپلود تصویر",
-                browse: "انتخاب تصویر",
-                preview: "پیش نمایش",
-                caption: "متن",
-                font: "فونت متن",
-                animation: "افکت",
-                settings: "تنظیمات",
-                position: "محل متن",
-                generate: "ساخت ویدیو",
-                output: "خروجی",
-                download: "دانلود WebM"
-            },
-            en: {
-                subtitle: "Turn any picture into a beautiful video.",
-                upload: "Upload Image",
-                browse: "Browse Image",
-                preview: "Preview",
-                caption: "Caption",
-                font: "Font",
-                animation: "Animation",
-                settings: "Settings",
-                position: "Text Position",
-                generate: "Generate Video",
-                output: "Output",
-                download: "Download WebM"
-            }
-        };
-
-        function applyLanguage() {
-            const t = translations[currentLanguage];
-            document.documentElement.lang = currentLanguage;
-            document.documentElement.dir = currentLanguage === "fa" ? "rtl" : "ltr";
-            
-            const subtitles = document.querySelectorAll(".subtitle");
-            if (subtitles.length) subtitles[0].textContent = t.subtitle;
-            
-            const h2s = document.querySelectorAll(".card h2");
-            if (h2s.length >= 7) {
-                h2s[0].textContent = t.upload;
-                h2s[1].textContent = t.preview;
-                h2s[2].textContent = t.caption;
-                h2s[3].textContent = t.font;
-                h2s[4].textContent = t.animation;
-                h2s[5].textContent = t.settings;
-                h2s[6].textContent = t.position;
-            }
-            
-            browseBtn.textContent = t.browse;
-            generateBtn.textContent = t.generate;
-            downloadBtn.textContent = t.download;
-            langBtn.textContent = currentLanguage === "fa" ? "EN" : "FA";
-            localStorage.setItem("verifiedVideoLanguage", currentLanguage);
-        }
-
-        langBtn.onclick = () => {
-            currentLanguage = currentLanguage === "fa" ? "en" : "fa";
             applyLanguage();
-        };
 
-        applyLanguage();
+            // ========================= VIDEO RENDERER =========================
+            function createRenderCanvas() {
+                if (!imageBitmap) {
+                    throw new Error("No image loaded");
+                }
 
-        // ========================= RENDERER =========================
-        function createRenderCanvas() {
-            if (!imageBitmap) {
-                throw new Error("No image loaded");
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+
+                const w = imageBitmap.width;
+                const h = imageBitmap.height;
+
+                switch (aspectSelect.value) {
+                    case "16:9":
+                        canvas.width = 1280;
+                        canvas.height = 720;
+                        break;
+                    case "1:1":
+                        canvas.width = 1080;
+                        canvas.height = 1080;
+                        break;
+                    case "9:16":
+                        canvas.width = 720;
+                        canvas.height = 1280;
+                        break;
+                    default:
+                        canvas.width = w;
+                        canvas.height = h;
+                }
+
+                return { canvas, ctx };
             }
 
-            canvas = document.createElement("canvas");
-            ctx = canvas.getContext("2d");
+            function drawFrame(canvas, ctx, progress) {
+                const cw = canvas.width;
+                const ch = canvas.height;
+                const iw = imageBitmap.width;
+                const ih = imageBitmap.height;
 
-            const w = imageBitmap.width;
-            const h = imageBitmap.height;
+                ctx.clearRect(0, 0, cw, ch);
 
-            switch (aspectSelect.value) {
-                case "16:9":
-                    canvas.width = 1280;
-                    canvas.height = 720;
-                    break;
-                case "1:1":
-                    canvas.width = 1080;
-                    canvas.height = 1080;
-                    break;
-                case "9:16":
-                    canvas.width = 720;
-                    canvas.height = 1280;
-                    break;
-                default:
-                    canvas.width = w;
-                    canvas.height = h;
+                // Draw image with animation
+                let scale = Math.max(cw / iw, ch / ih);
+                let offsetX = 0;
+                let offsetY = 0;
+
+                switch (animationSelect.value) {
+                    case "zoomIn":
+                        scale = scale * (1 + progress * 0.20);
+                        break;
+                    case "zoomOut":
+                        scale = scale * (1.20 - progress * 0.20);
+                        break;
+                    case "panLeft":
+                        offsetX = progress * 120;
+                        break;
+                    case "panRight":
+                        offsetX = -progress * 120;
+                        break;
+                    case "panUp":
+                        offsetY = progress * 120;
+                        break;
+                    case "panDown":
+                        offsetY = -progress * 120;
+                        break;
+                    case "pulse":
+                        scale = scale * (1 + Math.sin(progress * Math.PI * 4) * 0.035);
+                        break;
+                }
+
+                const drawWidth = iw * scale;
+                const drawHeight = ih * scale;
+                const x = (cw - drawWidth) / 2 + offsetX;
+                const y = (ch - drawHeight) / 2 + offsetY;
+
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = "high";
+                ctx.drawImage(imageBitmap, x, y, drawWidth, drawHeight);
+
+                // Draw caption
+                const text = caption.value.trim();
+                if (text) {
+                    const lines = text.split("\n");
+                    let fontFamily = "Vazirmatn";
+                    switch (fontSelect.value) {
+                        case "Yekan":
+                            fontFamily = "Yekan, Vazirmatn";
+                            break;
+                        case "Shabnam":
+                            fontFamily = "Shabnam, Vazirmatn";
+                            break;
+                        default:
+                            fontFamily = "Vazirmatn";
+                    }
+
+                    const fontSize = Math.max(32, Math.floor(cw / 20));
+                    const lineHeight = fontSize * 1.4;
+
+                    let ty;
+                    switch (currentPosition) {
+                        case "top":
+                            ty = ch * 0.12;
+                            break;
+                        case "center":
+                            ty = ch * 0.50;
+                            break;
+                        default:
+                            ty = ch * 0.88;
+                    }
+
+                    ctx.save();
+                    ctx.font = `700 ${fontSize}px ${fontFamily}, "Vazirmatn", sans-serif`;
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillStyle = "#ffffff";
+                    ctx.shadowColor = "rgba(0,0,0,0.8)";
+                    ctx.shadowBlur = 12;
+                    ctx.shadowOffsetX = 2;
+                    ctx.shadowOffsetY = 2;
+
+                    const startY = ty - ((lines.length - 1) * lineHeight) / 2;
+                    lines.forEach((line, index) => {
+                        const ly = startY + index * lineHeight;
+                        ctx.fillText(line, cw / 2, ly);
+                    });
+
+                    ctx.restore();
+                }
+
+                // Draw watermark
+                ctx.save();
+                ctx.translate(cw * 0.08, ch / 2);
+                ctx.rotate(-Math.PI / 2);
+
+                const wmSize = Math.max(16, Math.floor(cw / 28));
+                ctx.font = `700 ${wmSize}px "Ubuntu", sans-serif`;
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                ctx.shadowColor = "rgba(0,0,0,0.9)";
+                ctx.shadowBlur = 15;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+
+                const gradient = ctx.createLinearGradient(0, -20, 0, 20);
+                gradient.addColorStop(0, "#ffd700");
+                gradient.addColorStop(0.5, "#fff8dc");
+                gradient.addColorStop(1, "#ffd700");
+
+                ctx.fillStyle = gradient;
+                ctx.fillText("@verified_gif", 0, 0);
+
+                ctx.shadowBlur = 0;
+                ctx.strokeStyle = "rgba(0,0,0,0.5)";
+                ctx.lineWidth = 1.5;
+                ctx.strokeText("@verified_gif", 0, 0);
+
+                ctx.restore();
             }
-        }
 
-        function drawFrame(progress) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawAnimatedImage(progress);
-            drawCaption();
-            drawWatermark();
-        }
+            // ========================= GENERATE VIDEO =========================
+            generateBtn.addEventListener("click", async () => {
+                if (isProcessing || isGenerating) return;
+                if (!imageBitmap) {
+                    showToast("❌ لطفاً ابتدا یک تصویر انتخاب کنید.");
+                    return;
+                }
 
-        function drawAnimatedImage(progress) {
-            const cw = canvas.width;
-            const ch = canvas.height;
-            const iw = imageBitmap.width;
-            const ih = imageBitmap.height;
+                isProcessing = true;
+                isGenerating = true;
+                generateBtn.disabled = true;
+                progressSection.style.display = "block";
+                progressFill.style.width = "0%";
+                percent.textContent = "0%";
+                output.style.display = "none";
+                downloadBtn.disabled = true;
 
-            let scale = Math.max(cw / iw, ch / ih);
-            let offsetX = 0;
-            let offsetY = 0;
+                if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
+                    URL.revokeObjectURL(outputVideo.src);
+                    outputVideo.src = "";
+                }
 
-            switch (animationSelect.value) {
-                case "zoomIn":
-                    scale = scale * (1 + progress * 0.20);
-                    break;
-                case "zoomOut":
-                    scale = scale * (1.20 - progress * 0.20);
-                    break;
-                case "panLeft":
-                    offsetX = progress * 120;
-                    break;
-                case "panRight":
-                    offsetX = -progress * 120;
-                    break;
-                case "panUp":
-                    offsetY = progress * 120;
-                    break;
-                case "panDown":
-                    offsetY = -progress * 120;
-                    break;
-                case "pulse":
-                    scale = scale * (1 + Math.sin(progress * Math.PI * 4) * 0.035);
-                    break;
-            }
+                let mediaRecorder = null;
+                let stream = null;
+                let canvas = null;
+                let ctx = null;
+                let chunks = [];
+                let animationId = null;
 
-            const drawWidth = iw * scale;
-            const drawHeight = ih * scale;
-            const x = (cw - drawWidth) / 2 + offsetX;
-            const y = (ch - drawHeight) / 2 + offsetY;
+                try {
+                    const fps = parseInt(fpsSelect.value);
+                    const duration = parseFloat(durationSelect.value);
+                    const totalFrames = Math.max(Math.floor(fps * duration), 2);
 
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = "high";
-            ctx.drawImage(imageBitmap, x, y, drawWidth, drawHeight);
-        }
+                    const renderResult = createRenderCanvas();
+                    canvas = renderResult.canvas;
+                    ctx = renderResult.ctx;
 
-        function drawCaption() {
-            const text = caption.value.trim();
-            if (!text) return;
+                    // Determine supported mime type
+                    let mimeType = "video/webm;codecs=vp9";
+                    if (!MediaRecorder.isTypeSupported(mimeType)) {
+                        mimeType = "video/webm;codecs=vp8";
+                        if (!MediaRecorder.isTypeSupported(mimeType)) {
+                            mimeType = "video/webm";
+                        }
+                    }
 
-            const lines = text.split("\n");
-            
-            let fontFamily = "Vazirmatn";
-            switch(fontSelect.value) {
-                case "Yekan":
-                    fontFamily = "Yekan, Vazirmatn";
-                    break;
-                case "Shabnam":
-                    fontFamily = "Shabnam, Vazirmatn";
-                    break;
-                default:
-                    fontFamily = "Vazirmatn";
-            }
+                    stream = canvas.captureStream(fps);
+                    mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: mimeType,
+                        videoBitsPerSecond: 8000000
+                    });
 
-            const fontSize = Math.max(32, Math.floor(canvas.width / 20));
-            const lineHeight = fontSize * 1.4;
+                    mediaRecorder.ondataavailable = (e) => {
+                        if (e.data && e.data.size > 0) {
+                            chunks.push(e.data);
+                        }
+                    };
 
-            let y;
-            switch (currentPosition) {
-                case "top":
-                    y = canvas.height * 0.12;
-                    break;
-                case "center":
-                    y = canvas.height * 0.50;
-                    break;
-                default:
-                    y = canvas.height * 0.88;
-            }
+                    const finishPromise = new Promise((resolve, reject) => {
+                        mediaRecorder.onstop = () => {
+                            try {
+                                if (chunks.length === 0) {
+                                    reject(new Error("No data was recorded."));
+                                    return;
+                                }
 
-            ctx.save();
-            ctx.font = `700 ${fontSize}px ${fontFamily}, "Vazirmatn", sans-serif`;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = "#ffffff";
-            ctx.shadowColor = "rgba(0,0,0,0.8)";
-            ctx.shadowBlur = 12;
-            ctx.shadowOffsetX = 2;
-            ctx.shadowOffsetY = 2;
+                                const blob = new Blob(chunks, { type: mimeType });
+                                outputBlob = blob;
 
-            const startY = y - ((lines.length - 1) * lineHeight) / 2;
-            lines.forEach((line, index) => {
-                const ly = startY + index * lineHeight;
-                ctx.fillText(line, canvas.width / 2, ly);
+                                if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
+                                    URL.revokeObjectURL(outputVideo.src);
+                                }
+
+                                const url = URL.createObjectURL(blob);
+                                outputVideo.src = url;
+                                output.style.display = "block";
+                                downloadBtn.disabled = false;
+
+                                const width = canvas ? canvas.width : "N/A";
+                                const height = canvas ? canvas.height : "N/A";
+
+                                videoInfo.innerHTML =
+                                    `<b>مدت زمان:</b> ${duration} ثانیه<br>` +
+                                    `<b>سرعت فریم:</b> ${fps}<br>` +
+                                    `<b>رزولوشن:</b> ${width} × ${height}<br>` +
+                                    `<b>حجم:</b> ${(blob.size / 1024 / 1024).toFixed(2)} مگابایت`;
+
+                                progressFill.style.width = "100%";
+                                percent.textContent = "100%";
+                                showToast("✅ ویدیو با موفقیت ساخته شد!");
+                                resolve();
+                            } catch (err) {
+                                reject(err);
+                            }
+                        };
+
+                        mediaRecorder.onerror = (event) => {
+                            reject(new Error("Recorder error: " + (event.error || "Unknown")));
+                        };
+                    });
+
+                    // Start recording
+                    mediaRecorder.start(1000 / fps);
+
+                    // Render frames
+                    for (let frame = 0; frame < totalFrames; frame++) {
+                        const progress = totalFrames > 1 ? frame / (totalFrames - 1) : 1;
+                        drawFrame(canvas, ctx, progress);
+
+                        const percentVal = Math.min(Math.floor(progress * 100), 100);
+                        progressFill.style.width = percentVal + "%";
+                        percent.textContent = percentVal + "%";
+
+                        await new Promise(resolve => {
+                            animationId = requestAnimationFrame(resolve);
+                        });
+                    }
+
+                    // Stop recording and wait for completion
+                    mediaRecorder.stop();
+                    await finishPromise;
+
+                } catch (error) {
+                    console.error("Render error:", error);
+                    showToast("❌ خطا: " + error.message);
+                    progressSection.style.display = "none";
+                } finally {
+                    // Cleanup
+                    if (animationId) {
+                        cancelAnimationFrame(animationId);
+                    }
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                    }
+                    if (mediaRecorder && mediaRecorder.state === "recording") {
+                        try { mediaRecorder.stop(); } catch (e) {}
+                    }
+                    if (canvas) {
+                        canvas.width = 0;
+                        canvas.height = 0;
+                    }
+
+                    isProcessing = false;
+                    isGenerating = false;
+                    generateBtn.disabled = false;
+                }
             });
 
-            ctx.restore();
-        }
+            // ========================= DOWNLOAD =========================
+            downloadBtn.addEventListener("click", () => {
+                if (!outputBlob) {
+                    showToast("❌ چیزی برای دانلود وجود ندارد.");
+                    return;
+                }
 
-        // ========================= WATERMARK =========================
-        function drawWatermark() {
-    const cw = canvas.width;
-    const ch = canvas.height;
+                const a = document.createElement("a");
+                const url = URL.createObjectURL(outputBlob);
+                a.href = url;
+                a.download = "verified-video.webm";
+                document.body.appendChild(a);
+                a.click();
 
-    ctx.save();
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+            });
 
-    ctx.translate(cw * 0.08, ch / 2);
-    ctx.rotate(-Math.PI / 2);
+            // ========================= CLEANUP =========================
+            window.addEventListener("beforeunload", () => {
+                if (previewImage.src && previewImage.src.startsWith("blob:")) {
+                    URL.revokeObjectURL(previewImage.src);
+                }
+                if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
+                    URL.revokeObjectURL(outputVideo.src);
+                }
+                if (imageBitmap) {
+                    imageBitmap.close();
+                }
+            });
 
-    const fontSize = Math.max(16, Math.floor(cw / 28));
+            // ========================= INIT =========================
+            console.log("%c✅ Verified Video Ready!", "color:#22c55e;font-size:18px;font-weight:bold;");
+            showToast("✅ Verified Video بارگذاری شد!");
 
-    // Watermark font
-    ctx.font = `700 ${fontSize}px "Ubuntu", sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-
-    ctx.shadowColor = "rgba(0,0,0,0.9)";
-    ctx.shadowBlur = 15;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-
-    const gradient = ctx.createLinearGradient(0, -20, 0, 20);
-    gradient.addColorStop(0, "#ffd700");
-    gradient.addColorStop(0.5, "#fff8dc");
-    gradient.addColorStop(1, "#ffd700");
-
-    ctx.fillStyle = gradient;
-
-    ctx.fillText("@verified_gif", 0, 0);
-
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = "rgba(0,0,0,0.5)";
-    ctx.lineWidth = 1.5;
-    ctx.strokeText("@verified_gif", 0, 0);
-
-    ctx.restore();
-}
-
-        function waitFrame() {
-            return new Promise(resolve => requestAnimationFrame(resolve));
-        }
-
-        // ========================= GENERATE =========================
-        generateBtn.onclick = async () => {
-            if (processing) return;
-            if (!imageBitmap) {
-                showToast("لطفا یک تصویر انتخاب کنید.");
-                return;
-            }
-
-            processing = true;
-            generateBtn.disabled = true;
-            progressSection.style.display = "block";
-            progressFill.style.width = "0%";
-            percent.textContent = "0%";
-            output.style.display = "none";
-            chunks = [];
-            outputBlob = null;
-
-            try {
-                await renderVideo();
-            } catch (error) {
-                console.error("Render error:", error);
-                showToast("خطا: " + error.message);
-                processing = false;
+            // ========================= GLOBAL ERROR HANDLER =========================
+            window.onerror = function(message, source, lineno, colno, error) {
+                console.error("Global error:", message, error);
+                showToast("❌ خطا: " + (error ? error.message : message));
+                isProcessing = false;
+                isGenerating = false;
                 generateBtn.disabled = false;
                 progressSection.style.display = "none";
-            }
-        };
-
-        async function renderVideo() {
-            const fps = parseInt(fpsSelect.value);
-            const duration = parseFloat(durationSelect.value);
-            const totalFrames = Math.floor(fps * duration);
-            const safeTotalFrames = Math.max(totalFrames, 2);
-
-            createRenderCanvas();
-
-            let mimeType = "video/webm;codecs=vp9";
-            if (!MediaRecorder.isTypeSupported(mimeType)) {
-                mimeType = "video/webm;codecs=vp8";
-                if (!MediaRecorder.isTypeSupported(mimeType)) {
-                    mimeType = "video/webm";
-                }
-            }
-
-            try {
-                stream = canvas.captureStream(fps);
-                recorder = new MediaRecorder(stream, {
-                    mimeType: mimeType,
-                    videoBitsPerSecond: 8000000
-                });
-            } catch (error) {
-                throw new Error("Failed to create recorder: " + error.message);
-            }
-
-            recorder.ondataavailable = e => {
-                if (e.data.size) {
-                    chunks.push(e.data);
-                }
+                return true;
             };
 
-            recorder.onstop = finishVideo;
-            recorder.start();
-
-            for (let frame = 0; frame < safeTotalFrames; frame++) {
-                const progress = safeTotalFrames > 1 ? frame / (safeTotalFrames - 1) : 1;
-                drawFrame(progress);
-
-                const percentVal = Math.min(Math.floor(progress * 100), 100);
-                progressFill.style.width = percentVal + "%";
-                percent.textContent = percentVal + "%";
-
-                await waitFrame();
-            }
-
-            recorder.stop();
-        }
-
-        // ========================= FINISH =========================
-        function finishVideo() {
-            if (!chunks || chunks.length === 0) {
-                showToast("ویدیو ساخته نشد.");
-                processing = false;
-                generateBtn.disabled = false;
-                return;
-            }
-
-            outputBlob = new Blob(chunks, {
-                type: recorder ? recorder.mimeType : "video/webm"
-            });
-
-            if (outputVideo.src) {
-                URL.revokeObjectURL(outputVideo.src);
-            }
-
-            const url = URL.createObjectURL(outputBlob);
-            outputVideo.src = url;
-            output.style.display = "block";
-            downloadBtn.disabled = false;
-
-            const width = canvas ? canvas.width : "N/A";
-            const height = canvas ? canvas.height : "N/A";
-
-            videoInfo.innerHTML =
-                "<b>مدت زمان:</b> " + durationSelect.value + " ثانیه<br>" +
-                "<b>سرعت فریم:</b> " + fpsSelect.value + "<br>" +
-                "<b>رزولوشن:</b> " + width + " × " + height + "<br>" +
-                "<b>حجم:</b> " + (outputBlob.size / 1024 / 1024).toFixed(2) + " مگابایت";
-
-            progressFill.style.width = "100%";
-            percent.textContent = "100%";
-            processing = false;
-            generateBtn.disabled = false;
-            stopRecorder();
-            showToast("ویدیو ساخته شد!");
-        }
-
-        // ========================= DOWNLOAD =========================
-        downloadBtn.onclick = () => {
-            if (!outputBlob) {
-                showToast("چیزی برای دانلود نیست.");
-                return;
-            }
-
-            const a = document.createElement("a");
-            const url = URL.createObjectURL(outputBlob);
-            a.href = url;
-            a.download = "verified-video.webm";
-            document.body.appendChild(a);
-            a.click();
-
-            setTimeout(() => {
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }, 100);
-        };
-
-        // ========================= CLEANUP =========================
-        function stopRecorder() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-
-            if (recorder) {
-                try {
-                    if (recorder.state === "recording") {
-                        recorder.stop();
-                    }
-                } catch (e) {}
-                recorder = null;
-            }
-
-            stream = null;
-
-            if (canvas) {
-                canvas.width = 0;
-                canvas.height = 0;
-                canvas = null;
-                ctx = null;
-            }
-        }
-
-        window.addEventListener("beforeunload", () => {
-            stopRecorder();
-            if (previewImage.src && previewImage.src.startsWith("blob:")) {
-                URL.revokeObjectURL(previewImage.src);
-            }
-            if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
-                URL.revokeObjectURL(outputVideo.src);
-            }
-        });
-
-        // ========================= ERROR HANDLER =========================
-        window.onerror = function(message, source, lineno, colno, error) {
-            console.error("Global error:", message, error);
-            processing = false;
-            generateBtn.disabled = false;
-            progressSection.style.display = "none";
-            showToast("خطا: " + (error ? error.message : message));
-            return true;
-        };
-
-        console.log("%cVerified Video Ready!", "color:#22c55e;font-size:18px;font-weight:bold;");
-        showToast("Verified Video Loaded");
+        })();
     </script>
 </body>
-   </html>
+        </html>
