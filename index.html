@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Vazirmatn:wght@300;400;500;700;800&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/yekan-font@v1.0.0/dist/yekan.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/shabnam.min.css" rel="stylesheet">
-    <!-- WebM Muxer Library -->
-    <script src="https://unpkg.com/webm-muxer@3.0.0/dist/webm-muxer.min.js"></script>
     <style>
         :root {
             --bg1: #090b14;
@@ -681,6 +679,18 @@
     </footer>
     <div id="toast" class="show">Verified Video Loaded</div>
 
+    <!--
+        MediaRecorder-produced WebM files never get a real Duration written
+        into their container (this is a long-standing Chromium/Firefox
+        limitation, not a bug in this page's code) - so any player other
+        than the exact <video> element that just recorded it will show the
+        file as 0 seconds / unknown length. fix-webm-duration patches the
+        actual EBML/WebM bytes of the blob so the length is really stored
+        in the file, and every player (VLC, Windows/Mac default players,
+        re-opening the download, etc.) reads it correctly.
+        https://github.com/yusitnikov/fix-webm-duration
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/fix-webm-duration@1.0.6/fix-webm-duration.js"></script>
     <script>
         (function() {
             "use strict";
@@ -1063,7 +1073,7 @@
                 ctx.restore();
             }
 
-            // ========================= GENERATE VIDEO WITH WEBM MUXER =========================
+            // ========================= GENERATE VIDEO =========================
             generateBtn.addEventListener("click", async () => {
                 if (isProcessing || isGenerating) return;
                 if (!imageBitmap) {
@@ -1085,48 +1095,141 @@
                     outputVideo.src = "";
                 }
 
+                let mediaRecorder = null;
+                let stream = null;
                 let canvas = null;
                 let ctx = null;
-                let animationId = null;
+                let chunks = [];
+                let timeoutId = null;
                 let duration = parseFloat(durationSelect.value);
                 let fps = parseInt(fpsSelect.value);
 
                 try {
                     const totalFrames = Math.max(Math.floor(fps * duration), 2);
+                    // Real time (ms) each frame should occupy so that the
+                    // recording's wall-clock length matches the chosen duration,
+                    // regardless of the screen/browser refresh rate.
+                    const frameIntervalMs = 1000 / fps;
 
                     const renderResult = createRenderCanvas();
                     canvas = renderResult.canvas;
                     ctx = renderResult.ctx;
 
-                    // ============================================================
-                    // USE WEBM MUXER TO CREATE PROPER WEBM WITH DURATION
-                    // ============================================================
-                    
-                    // Check if WebM Muxer is available
-                    if (typeof WebMMuxer === 'undefined') {
-                        throw new Error("WebM Muxer library not loaded. Please refresh and try again.");
+                    // Determine supported mime type
+                    let mimeType = "video/webm;codecs=vp9";
+                    if (!MediaRecorder.isTypeSupported(mimeType)) {
+                        mimeType = "video/webm;codecs=vp8";
+                        if (!MediaRecorder.isTypeSupported(mimeType)) {
+                            mimeType = "video/webm";
+                        }
                     }
 
-                    // Create muxer with proper duration
-                    const muxer = new WebMMuxer.WebMMuxer({
-                        type: 'video',
-                        video: {
-                            codec: 'V_VP8',
-                            width: canvas.width,
-                            height: canvas.height,
-                            frameRate: fps
-                        },
-                        firstTimestampBehavior: 'strict'
+                    stream = canvas.captureStream(fps);
+                    mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: mimeType,
+                        videoBitsPerSecond: 8000000
                     });
 
-                    // Create video encoder
-                    const encoder = new WebMMuxer.VideoEncoderWebM(muxer, {
-                        width: canvas.width,
-                        height: canvas.height,
-                        frameRate: fps
+                    mediaRecorder.ondataavailable = (e) => {
+                        if (e.data && e.data.size > 0) {
+                            chunks.push(e.data);
+                        }
+                    };
+
+                    // Track when recording stops
+                    const finishPromise = new Promise((resolve, reject) => {
+                        mediaRecorder.onstop = async () => {
+                            try {
+                                if (chunks.length === 0) {
+                                    reject(new Error("No data was recorded."));
+                                    return;
+                                }
+
+                                // Raw blob straight out of MediaRecorder - its
+                                // WebM container has no Duration written into
+                                // it (a Chromium/Firefox limitation), so as-is
+                                // it would show as 0 seconds / unknown length
+                                // in any player, including after download.
+                                const rawBlob = new Blob(chunks, { type: mimeType });
+
+                                // Patch the actual file bytes so the duration
+                                // is really stored in the container. This is
+                                // what makes external players (not just this
+                                // page's own <video> tag) report the correct
+                                // length.
+                                let blob = rawBlob;
+                                if (typeof window.ysFixWebmDuration === "function") {
+                                    try {
+                                        blob = await window.ysFixWebmDuration(
+                                            rawBlob,
+                                            duration * 1000, // ms
+                                            { logger: false }
+                                        );
+                                    } catch (fixErr) {
+                                        console.error("Duration fix failed, using raw blob:", fixErr);
+                                        blob = rawBlob;
+                                    }
+                                } else {
+                                    console.warn("fix-webm-duration not loaded; output duration metadata may be missing.");
+                                }
+
+                                outputBlob = blob;
+
+                                if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
+                                    URL.revokeObjectURL(outputVideo.src);
+                                }
+
+                                const url = URL.createObjectURL(blob);
+                                outputVideo.src = url;
+                                output.style.display = "block";
+                                downloadBtn.disabled = false;
+
+                                const width = canvas ? canvas.width : "N/A";
+                                const height = canvas ? canvas.height : "N/A";
+
+                                let infoFinalized = false;
+                                const finalizeInfo = (actualDuration) => {
+                                    if (infoFinalized) return;
+                                    infoFinalized = true;
+                                    updateVideoInfo(actualDuration, fps, width, height, blob);
+                                };
+
+                                outputVideo.onloadedmetadata = () => {
+                                    const usable = isFinite(outputVideo.duration) &&
+                                        !isNaN(outputVideo.duration) &&
+                                        outputVideo.duration > 0;
+                                    finalizeInfo(usable ? Math.round(outputVideo.duration * 10) / 10 : duration);
+                                };
+
+                                // Fallback in case loadedmetadata never fires.
+                                setTimeout(() => finalizeInfo(duration), 2500);
+
+                                // Force metadata loading
+                                outputVideo.load();
+
+                                progressFill.style.width = "100%";
+                                percent.textContent = "100%";
+                                showToast("✅ ویدیو با موفقیت ساخته شد!");
+                                resolve();
+                            } catch (err) {
+                                reject(err);
+                            }
+                        };
+
+                        mediaRecorder.onerror = (event) => {
+                            reject(new Error("Recorder error: " + (event.error || "Unknown")));
+                        };
                     });
 
-                    // Generate frames and encode
+                    // Start recording with timeslice to ensure data is captured
+                    mediaRecorder.start(1000 / fps);
+
+                    // Render frames, paced against the wall clock (not
+                    // requestAnimationFrame) so the recorded length actually
+                    // equals fps * duration seconds no matter how fast/slow
+                    // the browser's own repaint rate is.
+                    const renderStart = performance.now();
+
                     for (let frame = 0; frame < totalFrames; frame++) {
                         const progress = totalFrames > 1 ? frame / (totalFrames - 1) : 1;
                         drawFrame(canvas, ctx, progress);
@@ -1135,83 +1238,38 @@
                         progressFill.style.width = percentVal + "%";
                         percent.textContent = percentVal + "%";
 
-                        // Capture frame as ImageData
-                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        
-                        // Convert to VP8 format (using Canvas API)
-                        // For WebM Muxer, we need to encode as VP8
-                        // Use the canvas to encode frame
-                        const frameCanvas = document.createElement('canvas');
-                        frameCanvas.width = canvas.width;
-                        frameCanvas.height = canvas.height;
-                        const frameCtx = frameCanvas.getContext('2d');
-                        frameCtx.putImageData(imageData, 0, 0);
-
-                        // Create a blob from the frame
-                        const frameBlob = await new Promise(resolve => {
-                            frameCanvas.toBlob(resolve, 'image/webp', 0.9);
-                        });
-
-                        // Convert blob to array buffer
-                        const frameBuffer = await frameBlob.arrayBuffer();
-                        
-                        // Encode frame with timestamp
-                        const timestamp = (frame / fps) * 1_000_000; // microseconds
-                        encoder.encode(new Uint8Array(frameBuffer), timestamp);
+                        // Figure out exactly when this frame *should* end
+                        // (frame index + 1 slots of frameIntervalMs after the
+                        // start of rendering), then wait only the remaining
+                        // time. This keeps total render time locked to
+                        // totalFrames * frameIntervalMs = duration seconds.
+                        const targetElapsed = (frame + 1) * frameIntervalMs;
+                        const actualElapsed = performance.now() - renderStart;
+                        const waitMs = Math.max(0, targetElapsed - actualElapsed);
 
                         await new Promise(resolve => {
-                            animationId = requestAnimationFrame(resolve);
+                            timeoutId = setTimeout(resolve, waitMs);
                         });
                     }
 
-                    // Finalize encoding
-                    encoder.finalize();
-                    const { data } = muxer.finalize();
-
-                    // Create blob from the final data
-                    const blob = new Blob([data], { type: 'video/webm' });
-                    outputBlob = blob;
-
-                    if (outputVideo.src && outputVideo.src.startsWith("blob:")) {
-                        URL.revokeObjectURL(outputVideo.src);
-                    }
-
-                    const url = URL.createObjectURL(blob);
-                    outputVideo.src = url;
-                    output.style.display = "block";
-                    downloadBtn.disabled = false;
-
-                    const width = canvas ? canvas.width : "N/A";
-                    const height = canvas ? canvas.height : "N/A";
-
-                    // Update video info with proper duration
-                    let actualDuration = duration;
-                    outputVideo.onloadedmetadata = function() {
-                        if (outputVideo.duration && isFinite(outputVideo.duration) && outputVideo.duration > 0) {
-                            actualDuration = Math.round(outputVideo.duration * 10) / 10;
-                        }
-                        updateVideoInfo(actualDuration, fps, width, height, blob);
-                    };
-                    
-                    // Fallback
-                    setTimeout(() => {
-                        updateVideoInfo(duration, fps, width, height, blob);
-                    }, 1000);
-
-                    outputVideo.load();
-
-                    progressFill.style.width = "100%";
-                    percent.textContent = "100%";
-                    showToast("✅ ویدیو با موفقیت ساخته شد!");
+                    // Stop recording and wait for completion
+                    mediaRecorder.stop();
+                    await finishPromise;
 
                 } catch (error) {
                     console.error("Render error:", error);
-                    showToast("❌ خطا: " + error.message);
+                    showToast("خطا: " + error.message);
                     progressSection.style.display = "none";
                 } finally {
                     // Cleanup
-                    if (animationId) {
-                        cancelAnimationFrame(animationId);
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                    }
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                    }
+                    if (mediaRecorder && mediaRecorder.state === "recording") {
+                        try { mediaRecorder.stop(); } catch (e) {}
                     }
                     if (canvas) {
                         canvas.width = 0;
@@ -1227,6 +1285,7 @@
             // ========================= UPDATE VIDEO INFO =========================
             function updateVideoInfo(duration, fps, width, height, blob) {
                 const sizeMB = (blob.size / 1024 / 1024).toFixed(2);
+                // Make sure duration is a valid number
                 let displayDuration = duration;
                 if (!isFinite(displayDuration) || isNaN(displayDuration) || displayDuration <= 0) {
                     displayDuration = parseFloat(durationSelect.value);
@@ -1243,7 +1302,7 @@
             // ========================= DOWNLOAD =========================
             downloadBtn.addEventListener("click", () => {
                 if (!outputBlob) {
-                    showToast("❌ چیزی برای دانلود وجود ندارد.");
+                    showToast("چیزی برای دانلود وجود ندارد.");
                     return;
                 }
 
@@ -1274,13 +1333,13 @@
             });
 
             // ========================= INIT =========================
-            console.log("%c✅ Verified Video Ready!", "color:#22c55e;font-size:18px;font-weight:bold;");
-            showToast("✅ Verified Video بارگذاری شد!");
+            console.log("%c Verified Video Ready!", "color:#22c55e;font-size:18px;font-weight:bold;");
+            showToast("Verified Video بارگذاری شد!");
 
             // ========================= GLOBAL ERROR HANDLER =========================
             window.onerror = function(message, source, lineno, colno, error) {
                 console.error("Global error:", message, error);
-                showToast("❌ خطا: " + (error ? error.message : message));
+                showToast("خطا : " + (error ? error.message : message));
                 isProcessing = false;
                 isGenerating = false;
                 generateBtn.disabled = false;
@@ -1291,4 +1350,4 @@
         })();
     </script>
 </body>
-        </html>
+</html>
